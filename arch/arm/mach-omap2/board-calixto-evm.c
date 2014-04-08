@@ -552,7 +552,7 @@ static struct spi_board_info am335x_spi0_slave_info[] = {
 static struct spi_board_info am335x_spi1_slave_info[] = {
         {
                 .modalias      = "spidev1",
-                //.platform_data = &am335x_spi_flash,
+                //.platform_data = &user_defined,
                 .irq           = -1,
                 .max_speed_hz  = 8000000,
                 .bus_num       = 2,
@@ -561,7 +561,7 @@ static struct spi_board_info am335x_spi1_slave_info[] = {
         },
 	{
                 .modalias      = "spidev2",
-                //.platform_data = &am335x_spi_flash,
+                //.platform_data = &user_defined,
                 .irq           = -1,
                 .max_speed_hz  = 8000000,
                 .bus_num       = 2,
@@ -1067,7 +1067,9 @@ static struct i2c_board_info __initdata am335x_i2c0_boardinfo[] = {
 	{
                 I2C_BOARD_INFO("pcf8563", 0x51),
         },
-
+	{
+		I2C_BOARD_INFO("max31790_controller", 0x20),
+	},
 };
 
 static struct omap_musb_board_data musb_board_data = {

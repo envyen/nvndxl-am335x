@@ -23,7 +23,7 @@ int blink_led(void)
    int loop;
    int error = 0;
 
-   for (loop = 0; loop <=15; loop++){
+   for (loop = 0; loop <=5; loop++){
 
 
 	data.id = 3;
@@ -50,6 +50,26 @@ int blink_led(void)
      return error;
 }
 
+int gpio_jmp_test(void)
+{
+	int error = 0;
+
+	  data.id = 3;
+          error = ioctl(fd, START_DEXCEL_IOCTL_IN, &data);
+
+          printf("Input GPIO ID No -> %d\n", data.id);
+          printf("Input GPIO Value -> %d\n", data.value);
+
+          data.id = 4;
+          error = ioctl(fd, START_DEXCEL_IOCTL_IN, &data);
+
+          printf("\nInput GPIO ID No -> %d\n", data.id);
+          printf("Input GPIO Value -> %d\n", data.value);
+
+	return error;
+}
+
+
 int main(void)
 {
     int error;
@@ -64,18 +84,8 @@ int main(void)
      }
 
 	//error = blink_led();	 
-	  data.id = 3;
-	  error = ioctl(fd, START_DEXCEL_IOCTL_IN, &data);
 	
-          printf("Input GPIO ID No -> %d\n", data.id);
-	  printf("Input GPIO Value -> %d\n", data.value);
-
-	  data.id = 4;
-	  error = ioctl(fd, START_DEXCEL_IOCTL_IN, &data);
-
-	  printf("\nInput GPIO ID No -> %d\n", data.id);
-          printf("Input GPIO Value -> %d\n", data.value);
-
+	  error = gpio_jmp_test(); 
 		
 	close(fd);
 	return error;

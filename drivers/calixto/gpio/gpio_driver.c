@@ -277,7 +277,6 @@ static int __devinit gpio_probe(struct platform_device *pdev)
 	 }
 	spin_unlock(&gpdev->sp_lock);
 	setup_timer(&gpdev->timer, gpio_irq_timer, (unsigned long)gpdev);
-	//init_timer(&gpdev->timer);
 	gpdev->interrupt = false;
 	gpdev->dev = &pdev->dev;
 	platform_set_drvdata(pdev, gpdev);	

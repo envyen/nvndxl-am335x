@@ -5,3 +5,13 @@ config CALIXTO_DEXCEL_GPIO_DRIVER_SUPPORT
 	help
 	Choose Y to Enable GPIO Driver for
 	Calixto Dexcel Viper Board
+
+config CALIXTO_DEXCEL_FAN_CONTROLLER_SUPPORT
+	bool "Fan Controller Support for Dexcel Viper Board"
+        default y
+        depends on CALIXTO_PHERIPHERAL_CONFIGURATION
+        help
+        Choose Y to Enable FAN Controller Driver for
+        Calixto Dexcel Viper Board
+
+
