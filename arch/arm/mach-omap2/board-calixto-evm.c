@@ -1,5 +1,5 @@
 /*
- * Code for AM335X EVM.
+ * Code for AM335X Dexcel Custom Board
  *
  * Copyright (C) 2011 Texas Instruments, Inc. - http://www.ti.com/
  *
@@ -68,37 +68,6 @@
 #include "mux.h"
 #include "devices.h"
 #include "hsmmc.h"
-
-static const struct display_panel disp_panel = {
-        WVGA,
-        16,
-        16,
-        COLOR_ACTIVE,
-};
-
-static struct lcd_ctrl_config lcd_cfg = {
-        &disp_panel,
-        .ac_bias                = 255,
-        .ac_bias_intrpt         = 0,
-        .dma_burst_sz           = 16,
-        .bpp                    = 16,
-        .fdd                    = 255,
-        .tft_alt_mode           = 0,
-        .stn_565_mode           = 0,
-        .mono_8bit_mode         = 0,
-        .invert_line_clock      = 1,
-        .invert_frm_clock       = 1,
-        .sync_edge              = 0,
-        .sync_ctrl              = 1,
-        .raster_order           = 0,
-};
-
-struct da8xx_lcdc_platform_data calixtovga_pdata = {
-        .manu_name              = "VGA",
-        .controller_data        = &lcd_cfg,
-        .type                   = "1280@720res",
-};
-
 #include "common.h"
 
 /* Am335x-ADC Init */
@@ -180,47 +149,27 @@ int am335x_evm_get_id(void)
 }
 EXPORT_SYMBOL(am335x_evm_get_id);
 
-/* Module pin mux for LCDC */
-static struct pinmux_config lcdc_pin_mux[] = {
-	{"lcd_data0.lcd_data0",		OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT
-						       | AM33XX_PULL_DISA},
-	{"lcd_data1.lcd_data1",		OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT
-						       | AM33XX_PULL_DISA},
-	{"lcd_data2.lcd_data2",		OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT
-						       | AM33XX_PULL_DISA},
-	{"lcd_data3.lcd_data3",		OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT
-						       | AM33XX_PULL_DISA},
-	{"lcd_data4.lcd_data4",		OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT
-						       | AM33XX_PULL_DISA},
-	{"lcd_data5.lcd_data5",		OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT
-						       | AM33XX_PULL_DISA},
-	{"lcd_data6.lcd_data6",		OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT
-						       | AM33XX_PULL_DISA},
-	{"lcd_data7.lcd_data7",		OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT
-						       | AM33XX_PULL_DISA},
-	{"lcd_data8.lcd_data8",		OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT
-						       | AM33XX_PULL_DISA},
-	{"lcd_data9.lcd_data9",		OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT
-						       | AM33XX_PULL_DISA},
-	{"lcd_data10.lcd_data10",	OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT
-						       | AM33XX_PULL_DISA},
-	{"lcd_data11.lcd_data11",	OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT
-						       | AM33XX_PULL_DISA},
-	{"lcd_data12.lcd_data12",	OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT
-						       | AM33XX_PULL_DISA},
-	{"lcd_data13.lcd_data13",	OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT
-						       | AM33XX_PULL_DISA},
-	{"lcd_data14.lcd_data14",	OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT
-						       | AM33XX_PULL_DISA},
-	{"lcd_data15.lcd_data15",	OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT
-						       | AM33XX_PULL_DISA},
-	{"lcd_vsync.lcd_vsync",		OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT},
-	{"lcd_hsync.lcd_hsync",		OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT},
-	{"lcd_pclk.lcd_pclk",		OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT},
-	{"lcd_ac_bias_en.lcd_ac_bias_en", OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT},
-	{NULL, 0},
-};
+static struct pinmux_config lcdc_pin_mux_gpio[] = {
+        {"lcd_data0.gpio2_6",         OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT },
+        {"lcd_data1.gpio2_7",         OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT },
+        {"lcd_data2.gpio2_8",         OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT },
+        {"lcd_data3.gpio2_9",         OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT },
+        {"lcd_data4.gpio2_10",         OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT },
+        {"lcd_data5.gpio2_11",         OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT },
+        {"lcd_data6.gpio2_12",         OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT },
+        {"lcd_data7.gpio2_13",         OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT },
 
+        {"lcd_data8.gpio2_14",          OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT},
+        {"lcd_data9.gpio2_15",          OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT},
+        {"lcd_data10.gpio2_16",         OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT},
+
+        {"lcd_vsync.gpio2_22",         OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT},
+        {"lcd_hsync.gpio2_23",         OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT},
+        {"lcd_pclk.gpio2_24",           OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT},
+
+        {"lcd_ac_bias_en.lcd_ac_bias_en", OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT},
+        {NULL, 0},
+};
 /* Pin mux for nand flash module */
 static struct pinmux_config nand_pin_mux[] = {
 	{"gpmc_ad0.gpmc_ad0",	  OMAP_MUX_MODE0 | AM33XX_PIN_INPUT_PULLUP},
@@ -432,24 +381,36 @@ out:
 	return ret;
 }
 
-static void lcdc_init(int evm_id, int profile)
-{
-	struct da8xx_lcdc_platform_data *lcdc_pdata;
-	setup_pin_mux(lcdc_pin_mux);
 
-	if (conf_disp_pll(300000000)) {
-		pr_info("Failed configure display PLL, not attempting to"
-				"register LCDC\n");
-		return;
+#define  LCD_BASE_ADDR	0x4830E000
+
+static struct resource dxlLcd_resources[] = {
+	[0] = {
+		.start = LCD_BASE_ADDR,	
+		.end   = LCD_BASE_ADDR+SZ_4K-1,
+		.flags = IORESOURCE_MEM,
+	},
+	[1] = {
+		.start = AM33XX_IRQ_LCD,
+		.end   = AM33XX_IRQ_LCD,
+		.flags = IORESOURCE_IRQ,
 	}
+};
 
-        lcdc_pdata = &calixtovga_pdata;
-	lcdc_pdata->get_context_loss_count = omap_pm_get_dev_context_loss_count;
+static struct platform_device dxlLcd_device = {
+	.name          = "dxlLcd",
+	.id            = 0,
+	.num_resources = ARRAY_SIZE(dxlLcd_resources),
+	.resource      = dxlLcd_resources,
+};
 
-	if (am33xx_register_lcdc(lcdc_pdata))
-		pr_info("Failed to register LCDC device\n");
+static void dxlLcd_display_init(int evm_id, int profile)
+{
+	setup_pin_mux(lcdc_pin_mux_gpio);
 
-	return;
+	platform_device_register(&dxlLcd_device);
+	pr_info("Initialized dxlLcd LCD driver.\n");
+
 }
 
 static void rmii1_init(int evm_id, int profile)
@@ -918,8 +879,7 @@ static void sgx_init(int evm_id, int profile)
 static struct evm_dev_cfg calixto_dev_cfg[] = {
 	{am335x_rtc_init, DEV_ON_BASEBOARD, PROFILE_NONE},
 	{clkout2_enable,  DEV_ON_BASEBOARD, PROFILE_NONE},
-        {lcdc_init,       DEV_ON_BASEBOARD, PROFILE_NONE},
-        {sgx_init,        DEV_ON_BASEBOARD, PROFILE_NONE},
+	{dxlLcd_display_init, DEV_ON_BASEBOARD,PROFILE_NONE},
 	{mfd_adc_init,	  DEV_ON_BASEBOARD, PROFILE_NONE},
 	{spi0_init,	  DEV_ON_BASEBOARD, PROFILE_NONE},
 	{spi1_init,	  DEV_ON_BASEBOARD, PROFILE_NONE},

@@ -14,4 +14,12 @@ config CALIXTO_DEXCEL_FAN_CONTROLLER_SUPPORT
         Choose Y to Enable FAN Controller Driver for
         Calixto Dexcel Viper Board
 
+config CALIXTO_DEXCEL_GLCD
+	bool "Graphical LCD Support for Dexcel Viper Board"
+        default y
+        depends on CALIXTO_PHERIPHERAL_CONFIGURATION
+        help
+        Choose Y to Enable GLCD Driver for
+        Calixto Dexcel Viper Board
+
 
